@@ -1,0 +1,7 @@
+platform: linux
+
+inputs:
+- name: image
+
+run:
+  path: source/test.sh
