@@ -1,0 +1,25 @@
+resources:
+- name: source
+  type: git
+  source: {uri: "https://github.com/mitom/concourse-test"}
+
+- name: image
+  type: docker-image
+  source: {repository: mitom/test}
+
+jobs:
+- name: build-task-image
+  plan:
+  - get: source
+  - put: image
+    params: {build: source/}
+
+- name: use-task-image
+  plan:
+  - get: image
+    passed: [build-task-image]
+  - get: source
+    passed: [build-task-image]
+  - task: use-task-image
+    image: image
+    run: ls
