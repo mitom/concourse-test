@@ -11,6 +11,7 @@ jobs:
 - name: build-task-image
   plan:
   - get: source
+    trigger: true
   - put: image
     params: {build: source/}
 
